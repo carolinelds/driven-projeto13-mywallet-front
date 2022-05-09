@@ -5,6 +5,7 @@ import { useState } from "react";
 import SignInPage from "./components/SignInPage";
 import SignUpPage from "./components/SignUpPage";
 import WalletPage from "./components/WalletPage";
+import TransactionInPage from "./components/TransactionInPage.js";
 import TokenContext from "./contexts/TokenContext";
 import UserContext from "./contexts/UserContext";
 
@@ -22,6 +23,7 @@ export default function App() {
                             <Route path="/" element={<SignInPage />}></Route>
                             <Route path="/sign-up" element={<SignUpPage />}></Route>
                             <Route path="/wallet" element={<WalletPage />}></Route>
+                            <Route path="/wallet/in" element={<TransactionInPage />}></Route>
                         </Routes>
                     </BrowserRouter>
                 </UserContext.Provider>

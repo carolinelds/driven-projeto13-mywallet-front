@@ -2,6 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 // eslint-disable-next-line
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext.js";
 import TokenContext from "../contexts/TokenContext.js";
 import LogoutButton from "./../assets/logout.svg";
@@ -12,13 +13,11 @@ export default function WalletPage() {
     const { user } = useContext(UserContext);
     const { token } = useContext(TokenContext);
     const [transactions, setTransactions] = useState([]);
-    // eslint-disable-next-line
     const [balance, setBalance] = useState(0);
 
     async function request(config) {
         try {
             const response = await axios.get("http://localhost:5000/user", config);
-            console.log(response);
 
             const { movements } = response.data;
             const newBalance = response.data.balance;
@@ -49,14 +48,19 @@ export default function WalletPage() {
         return num > 0 ? "positive" : "negative";
     }
 
+    let navigate = useNavigate();
+    function nextPage(page) {
+        navigate(`/wallet/${page}`);
+    }
+
     function renderTransactions() {
 
         return transactions.length > 0 ? (
-            transactions.map(t => {
+            transactions.map((t,index) => {
                 const { type, value, description, date } = t;
 
                 return (
-                    <div className="transaction">
+                    <div className="transaction" key={index}>
                         <div className="container-day-text">
                             <p className="day">{date}</p>
                             <p className="text">{description}</p>
@@ -69,7 +73,6 @@ export default function WalletPage() {
             <p className="empty-transactions">
                 Não há registros <br/> de entrada ou saída
             </p>
-            
         );
     };
 
@@ -88,16 +91,15 @@ export default function WalletPage() {
             </div>
 
             <div className="buttons-container">
-                <button>
+                <button onClick={() => nextPage("in")}>
                     <img src={Add} alt="Adicionar nova entrada" />
                     <p>Nova entrada</p>
                 </button>
-                <button>
+                <button onClick={() => nextPage("out")}>
                     <img src={Subtract} alt="Adicionar nova saída" />
                     <p>Nova saída</p>
                 </button>
             </div>
-
         </Div>
     );
 }
