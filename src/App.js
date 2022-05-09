@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import SignInPage from "./components/SignInPage";
+import SignUpPage from "./components/SignUpPage";
 import TokenContext from "./contexts/TokenContext";
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<SignInPage />}></Route>
+                        <Route path="/sign-up" element={<SignUpPage />}></Route>
                     </Routes>
                 </BrowserRouter>
             </TokenContext.Provider>
