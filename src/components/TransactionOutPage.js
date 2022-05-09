@@ -14,7 +14,8 @@ export default function TransactionOutPage(){
 
     async function request(config,body){
         try {
-            await axios.post("http://localhost:5000/user", body, config);
+            await axios.post("https://driven-projeto13-mywallet-back.herokuapp.com/user", body, config);
+            //await axios.post("http://localhost:5000/user", body, config);
 
             nextPage();
         } catch(e) {

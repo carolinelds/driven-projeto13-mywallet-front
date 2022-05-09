@@ -16,7 +16,8 @@ export default function WalletPage() {
 
     async function request(config) {
         try {
-            const response = await axios.get("http://localhost:5000/user", config);
+            const response = await axios.get("https://driven-projeto13-mywallet-back.herokuapp.com/user", config);
+            //const response = await axios.get("http://localhost:5000/user", config);
 
             const { movements } = response.data;
             const newBalance = response.data.balance;

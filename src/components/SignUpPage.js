@@ -30,8 +30,8 @@ export default function SignUpPage() {
         };
 
         try {
-            const response = await axios.post("http://localhost:5000/sign-up", body);
-            console.log(response);
+            const response = await axios.post("https://driven-projeto13-mywallet-back.herokuapp.com/sign-up", body);
+            //const response = await axios.post("http://localhost:5000/sign-up", body);
 
             nextPage();
         } catch (e) {
