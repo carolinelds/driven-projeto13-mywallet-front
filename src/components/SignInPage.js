@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
@@ -11,9 +12,11 @@ export default function SignInPage() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    async function login(event){
+    async function login(event) {
         event.preventDefault();
+        setLoading(true);
 
         const body = {
             email,
@@ -29,19 +32,20 @@ export default function SignInPage() {
 
             nextPage();
 
-        } catch(e) {
+        } catch (e) {
             window.alert("Usuário ou senha inválido(s), tente novamente.");
             console.log(e);
+            setLoading(false);
         }
     };
 
     let navigate = useNavigate();
 
-    function nextPage(){
+    function nextPage() {
         navigate("/wallet");
     }
 
-    return (
+    return !loading ? (
         <Div>
             <h1>MyWallet</h1>
             <form onSubmit={login}>
@@ -53,7 +57,21 @@ export default function SignInPage() {
                 <p>Primeira vez? Cadastre-se!</p>
             </Link>
         </Div>
-    )
+    ) : (
+        <Div>
+            <h1>MyWallet</h1>
+            <form onSubmit={login}>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="E-mail" disabled />
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" disabled />
+                <button type="submit" className="loading" disabled>
+                    <ThreeDots color="#FFFFFF" height={50} width={50} />
+                </button>
+            </form>
+            <Link to="/sign-up">
+                <p>Primeira vez? Cadastre-se!</p>
+            </Link>
+        </Div>
+    );
 }
 
 const Div = styled.div`
@@ -103,6 +121,9 @@ const Div = styled.div`
         line-height: 23px;
         color: #FFFFFF;
         border-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     p {
@@ -111,4 +132,9 @@ const Div = styled.div`
         line-height: 18px;
         color: #FFFFFF;
     }
+
+    .loading {
+        opacity: 0.5;
+    }
+    
 `;
