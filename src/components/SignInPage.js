@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import TokenContext from "../contexts/TokenContext.js";
+import UserContext from "../contexts/UserContext.js";
 
 export default function SignInPage() {
 
     const { setToken } = useContext(TokenContext);
+    const { setUser } = useContext(UserContext);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -27,8 +29,8 @@ export default function SignInPage() {
             const response = await axios.post("http://localhost:5000/sign-in", body);
             console.log(response);
 
-            const newToken = response.data;
-            setToken(newToken);
+            setToken(response.data.token);
+            setUser(response.data.name);
 
             nextPage();
 

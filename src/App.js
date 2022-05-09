@@ -4,23 +4,29 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import SignInPage from "./components/SignInPage";
 import SignUpPage from "./components/SignUpPage";
+import WalletPage from "./components/WalletPage";
 import TokenContext from "./contexts/TokenContext";
+import UserContext from "./contexts/UserContext";
 
 export default function App() {
 
     const [token, setToken] = useState("");
+    const [user, setUser] = useState("");
 
     return (
         <Div>
             <TokenContext.Provider value={{ token, setToken }}>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<SignInPage />}></Route>
-                        <Route path="/sign-up" element={<SignUpPage />}></Route>
-                    </Routes>
-                </BrowserRouter>
+                <UserContext.Provider value={{ user, setUser }}>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/" element={<SignInPage />}></Route>
+                            <Route path="/sign-up" element={<SignUpPage />}></Route>
+                            <Route path="/wallet" element={<WalletPage />}></Route>
+                        </Routes>
+                    </BrowserRouter>
+                </UserContext.Provider>
             </TokenContext.Provider>
-        </Div>
+        </Div >
     );
 }
 
