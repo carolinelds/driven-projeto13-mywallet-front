@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import TokenContext from "../contexts/TokenContext.js";
 
-export default function TransactionInPage(){
+export default function TransactionOutPage(){
 
     const { token } = useContext(TokenContext);
 
@@ -23,7 +23,7 @@ export default function TransactionInPage(){
         }
     }
 
-    function addBalance(event){
+    function subtractBalance(event){
         event.preventDefault();
 
         const config = {
@@ -34,7 +34,7 @@ export default function TransactionInPage(){
         const formatedValue = parseFloat(value.replace(",","."));
         console.log(formatedValue);
         const body = {
-            type: "in",
+            type: "out",
             value: formatedValue,
             description
         };
@@ -49,10 +49,10 @@ export default function TransactionInPage(){
     return(
         <Div>
             <h1>Nova entrada</h1>
-            <form onSubmit={addBalance}>
+            <form onSubmit={subtractBalance}>
                 <input type="text" value={value} onChange={e => setValue(e.target.value)} placeholder="Valor" required />
                 <input type="text" value={description} onChange={e => setDescription(e.target.value)} placeholder="Descrição" required />
-                <button type="submit">Salvar entrada</button>
+                <button type="submit">Salvar saída</button>
             </form>
             <Link to="/wallet">
                 <p>Voltar</p>

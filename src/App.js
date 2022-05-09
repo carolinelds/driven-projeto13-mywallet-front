@@ -6,6 +6,7 @@ import SignInPage from "./components/SignInPage";
 import SignUpPage from "./components/SignUpPage";
 import WalletPage from "./components/WalletPage";
 import TransactionInPage from "./components/TransactionInPage.js";
+import TransactionOutPage from "./components/TransactionOutPage.js";
 import TokenContext from "./contexts/TokenContext";
 import UserContext from "./contexts/UserContext";
 
@@ -24,6 +25,7 @@ export default function App() {
                             <Route path="/sign-up" element={<SignUpPage />}></Route>
                             <Route path="/wallet" element={<WalletPage />}></Route>
                             <Route path="/wallet/in" element={<TransactionInPage />}></Route>
+                            <Route path="/wallet/out" element={<TransactionOutPage />}></Route>
                         </Routes>
                     </BrowserRouter>
                 </UserContext.Provider>
